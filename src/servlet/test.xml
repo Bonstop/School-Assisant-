@@ -1,0 +1,18 @@
+<xml>
+
+	<!-- 
+		ToUserName : 开发者微信号
+		FromUserName : 发送方帐号（一个OpenID : 只是随机放的一个数据）
+		CreateTime : 消息创建时间 （整型）单位时间为秒
+		MsgType : 消息类型，文本为text
+		Content : 文本消息内容
+		MsgId : 消息id，64位整型 
+	-->
+
+	<ToUserName><![CDATA[gh_c67e59e8f8c6]]></ToUserName>
+	<FromUserName><![CDATA[oBzBC1Qwf-7-nxXs6ghXCrrxK13A]]></FromUserName>
+	<CreateTime>1554984695</CreateTime>
+	<MsgType><![CDATA[text]]></MsgType>
+	<Content><![CDATA[浣犲ソ]]></Content><!-- 我发了一个“你好”,这个需要后序做一个解析才能使用 -->
+	<MsgId>22262029333601665</MsgId>
+</xml>
