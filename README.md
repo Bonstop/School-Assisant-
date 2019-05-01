@@ -1,2 +1,3 @@
-# School-Assisant-
-This is my homework of SoftWare Engineering. The Software development environment is Wechat public account.
+# School Assistent
+This is my homework of Software Engeering. It is a Wechat Public Account.
+This one just has some easy function beacuse it is my first time to develop a WeChat Public Account.
