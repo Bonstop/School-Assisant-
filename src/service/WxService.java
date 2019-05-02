@@ -8,12 +8,23 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 import javax.servlet.ServletInputStream;
 
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
+
+import com.thoughtworks.xstream.XStream;
+
+import entity.BaseMessage;
+import entity.ImageMessage;
+import entity.MusicMessage;
+import entity.NewsMessage;
+import entity.TextMessage;
+import entity.VideoMessage;
+import entity.VoiceMessage;
 
 
 public class WxService {
@@ -71,5 +82,59 @@ public class WxService {
 			e.printStackTrace();
 		}
 		return map;
+	}
+	/*
+	 * 处理传送回来的response的包，因为有多种类型，这里使用switch,但是我的版本不支持switch(在java7中才支持，但是我的版本是1.6)//
+	 * */
+	public static String getResponse(Map<String, String> requestMap) {
+		BaseMessage msg = null;
+		String msgType = requestMap.get("MsgType");
+		switch(msgType) {
+			case "text":
+				msg = dealTextMessage(requestMap);
+				
+				break;
+			case "image":
+				break;
+			case "voice":
+				break;
+			case "video":
+				break;
+			case "shortvideo":
+				break;
+			case "link":
+				break;
+			default :
+				break;
+		}
+		
+		//把消息对象处理为XML数据包
+		if(msg != null){
+			return beanToXMl(msg);
+		}
+		return null;
+	}
+	
+	//把对象转换成XML代码
+	private static String beanToXMl(BaseMessage msg) {
+		XStream stream = new XStream();
+		//设置需要处理XStreamAlias("xml")注释的类
+		stream.processAnnotations(TextMessage.class);
+		stream.processAnnotations(NewsMessage.class);
+		stream.processAnnotations(MusicMessage.class);
+		stream.processAnnotations(ImageMessage.class);
+		stream.processAnnotations(VideoMessage.class);
+		stream.processAnnotations(VoiceMessage.class);
+		String xml = stream.toXML(msg);
+		//System.out.println(xml);
+		return xml;
+	}
+	/*
+	 * 专门处理文本消息
+	 * */
+	private static BaseMessage dealTextMessage(Map<String, String> requestMap) {
+		TextMessage tm = new TextMessage(requestMap , "还好");
+		
+		return tm;
 	}
 }

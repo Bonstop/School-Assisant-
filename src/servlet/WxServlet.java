@@ -37,9 +37,18 @@ public class WxServlet extends HttpServlet {
 	 * doPost用来接收消息和事件的推送
 	 * */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf8");//传送的数据和回复的数据里面可能含有中文，需要转换//
+		response.setCharacterEncoding("utf8");
 		//处理消息和事件推送
 		Map<String , String> requestMap = WxService.parseRequest(request.getInputStream());
 		System.out.println(requestMap);
+		//准备回复的数据包//
+		String respXml = WxService.getResponse(requestMap);
+		System.out.println(respXml);
+		PrintWriter out = response.getWriter();
+		out.print(respXml);
+		out.flush();
+		out.close();
 	}
 
 }
